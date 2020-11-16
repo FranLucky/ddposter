@@ -14,3 +14,6 @@ type ActionCard struct{
 	Btns []Btn `json:"btns"` // 按钮
 }
 
+func (a *ActionCard) Post(url string, at *At) error {
+	return post(a, "actionCard", url,  at)
+}
