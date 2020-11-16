@@ -18,7 +18,7 @@ type DingBody interface {
 }
 
 type DDPoster struct {
-	MsgType string         `json:"msgType"`
+	MsgType string         `json:"msgtype"`
 	At *At                 `json:"at,omitempty"`
 	FeedCard *FeedCard     `json:"feedCard,omitempty"`
 	ActionCard *ActionCard `json:"actionCard,omitempty"`
@@ -45,6 +45,7 @@ func post(body DingBody,msgType string, url string, at *At) error {
 	} else if t, ok := body.(*ActionCard); ok {
 		m.ActionCard = t
 	}
+	fmt.Println(m)
 	bc, err := json.Marshal(m)
 	if err != nil {
 		return err
