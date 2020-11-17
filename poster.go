@@ -14,10 +14,10 @@ type At struct {
 }
 
 type DingBody interface {
-	Post(url string, at *At) error
+	TypeString() string
 }
 
-type DDPoster struct {
+type dDPoster struct {
 	MsgType string         `json:"msgtype"`
 	At *At                 `json:"at,omitempty"`
 	FeedCard *FeedCard     `json:"feedCard,omitempty"`
@@ -27,29 +27,36 @@ type DDPoster struct {
 	Text *Text             `json:"text,omitempty"`
 }
 
-func post(body DingBody,msgType string, url string, at *At) error {
+func Send(body DingBody, url string, at *At) error {
 	if len(url) == 0 {
 		return fmt.Errorf("发送地址不能为空")
 	}
-	m := new(DDPoster)
-	m.MsgType = msgType
+	m := new(dDPoster)
 	m.At = at
 	if t, ok := body.(*Text); ok {
+		m.MsgType = t.TypeString()
 		m.Text = t
 	} else if t, ok := body.(*Link); ok {
+		m.MsgType = t.TypeString()
 		m.Link = t
 	} else if t, ok := body.(*Markdown); ok {
+		m.MsgType = t.TypeString()
 		m.Markdown = t
 	} else if t, ok := body.(*FeedCard); ok {
+		m.MsgType = t.TypeString()
 		m.FeedCard = t
 	} else if t, ok := body.(*ActionCard); ok {
+		m.MsgType = t.TypeString()
 		m.ActionCard = t
 	}
-	fmt.Println(m)
+	if len(m.MsgType) == 0 {
+		return fmt.Errorf("内容不能为空")
+	}
 	bc, err := json.Marshal(m)
 	if err != nil {
 		return err
 	}
+	fmt.Println(string(bc))
 	resp, err := http.Post(url, "application/json;charset=utf-8", bytes.NewReader(bc))
 	if err != nil {
 		return err

@@ -5,7 +5,7 @@ type Markdown struct {
 	Text string `json:"text"` // markdown格式的消息
 }
 
-func (m *Markdown) Post(url string, at *At) error {
-	return post(m, "markdown", url, at)
+func (m Markdown) TypeString() string {
+	return "markdown"
 }
 

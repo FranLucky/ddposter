@@ -7,6 +7,6 @@ type Link struct {
 	MessageUrl string `json:"messageUrl"` // 点击消息跳转的URL
 }
 
-func (l *Link) Post(url string, at *At) error {
-	return post(l, "link", url, at)
+func (l Link) TypeString() string {
+	return "link"
 }
