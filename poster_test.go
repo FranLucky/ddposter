@@ -2,7 +2,7 @@ package ddposter
 
 import "testing"
 
-const dingURL = "https://oapi.dingtalk.com/robot/send?access_token=f57f56d736238e2981d79ff6c7862dff593d8133ce9938de9269ecc285be3208"
+const dingURL = "https://oapi.dingtalk.com/robot/send?access_token="
 const imgURL = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2396361575,51762536&fm=26&gp=0.jpg"
 const BaiduURL = "https://www.baidu.com"
 func TestSend(t *testing.T) {
