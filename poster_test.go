@@ -17,19 +17,19 @@ func TestSend(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"text", args{body: &Text{Content: "["}, url: dingURL, at: nil}, false},
-		{"link", args{body: &Link{Text: "[", Title: "aa", PicUrl: imgURL, MessageUrl: BaiduURL}, url: dingURL, at: nil}, false},
-		{"markdown", args{body: &Markdown{
+		{"text", args{body: Text{Content: "["}, url: dingURL, at: nil}, false},
+		{"link", args{body: Link{Text: "[", Title: "aa", PicUrl: imgURL, MessageUrl: BaiduURL}, url: dingURL, at: nil}, false},
+		{"markdown", args{body: Markdown{
 			Title: "[",
 			Text:  "### 标题",
 		}, url: dingURL, at: nil}, false},
-		{"wholeCard", args{body: &ActionCard{
+		{"wholeCard", args{body: ActionCard{
 			Title:          "[",
 			Text:           "whole",
 			SingleTitle:    "前往",
 			SingleURL:      BaiduURL,
 		}, url: dingURL, at: nil}, false},
-		{"buttonActionCard", args{body: &ActionCard{
+		{"buttonActionCard", args{body: ActionCard{
 			Title:          "[",
 			Text:           "buttons",
 			Btns:           []Btn{
@@ -37,7 +37,7 @@ func TestSend(t *testing.T) {
 				{Title: "b", ActionURL: BaiduURL},
 			},
 		}, url: dingURL, at: nil}, false},
-		{"feedcard", args{body: &FeedCard{Links: []Link{ {Text:"aaa", Title: "[", PicUrl: imgURL, MessageUrl: BaiduURL} }}, url: dingURL, at: nil}, false},
+		{"feedcard", args{body: FeedCard{Links: []Link{ {Text:"aaa", Title: "[", PicUrl: imgURL, MessageUrl: BaiduURL} }}, url: dingURL, at: nil}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

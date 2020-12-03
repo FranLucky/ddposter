@@ -20,11 +20,11 @@ type DingBody interface {
 type dDPoster struct {
 	MsgType string         `json:"msgtype"`
 	At *At                 `json:"at,omitempty"`
-	FeedCard *FeedCard     `json:"feedCard,omitempty"`
-	ActionCard *ActionCard `json:"actionCard,omitempty"`
-	Link *Link             `json:"link,omitempty"`
-	Markdown *Markdown     `json:"markdown,omitempty"`
-	Text *Text             `json:"text,omitempty"`
+	FeedCard FeedCard     `json:"feedCard,omitempty"`
+	ActionCard ActionCard `json:"actionCard,omitempty"`
+	Link Link             `json:"link,omitempty"`
+	Markdown Markdown     `json:"markdown,omitempty"`
+	Text Text             `json:"text,omitempty"`
 }
 
 func Send(body DingBody, url string, at *At) error {
@@ -33,19 +33,19 @@ func Send(body DingBody, url string, at *At) error {
 	}
 	m := new(dDPoster)
 	m.At = at
-	if t, ok := body.(*Text); ok {
+	if t, ok := body.(Text); ok {
 		m.MsgType = t.TypeString()
 		m.Text = t
-	} else if t, ok := body.(*Link); ok {
+	} else if t, ok := body.(Link); ok {
 		m.MsgType = t.TypeString()
 		m.Link = t
-	} else if t, ok := body.(*Markdown); ok {
+	} else if t, ok := body.(Markdown); ok {
 		m.MsgType = t.TypeString()
 		m.Markdown = t
-	} else if t, ok := body.(*FeedCard); ok {
+	} else if t, ok := body.(FeedCard); ok {
 		m.MsgType = t.TypeString()
 		m.FeedCard = t
-	} else if t, ok := body.(*ActionCard); ok {
+	} else if t, ok := body.(ActionCard); ok {
 		m.MsgType = t.TypeString()
 		m.ActionCard = t
 	}
